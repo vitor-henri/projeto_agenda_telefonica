@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using projeto_agenda_telefonica.Data;
 
 namespace projeto_agenda_telefonica.Controllers
 {
@@ -54,6 +55,93 @@ namespace projeto_agenda_telefonica.Controllers
             finally
             {
                 conexao.Close();
+            }
+        }
+        public bool DeletarUsuario(string usuario)
+        {
+            MySqlConnection connection = ConexaoDB.Conexao();
+
+            try
+            {
+                connection.Open();
+
+                MySqlCommand cmdDeleteUser = new MySqlCommand(
+                    $@"
+                        DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;
+                        DROP USER '{usuario}'@'%';
+                    ",
+                    connection
+                );
+
+                cmdDeleteUser.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdDeleteUser.ExecuteNonQuery();
+
+                // Usuário Deletado
+
+                return true;
+            }
+
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public Dictionary<string, object>? PegarUsuario(string usuario)
+        {
+            MySqlConnection connection = ConexaoDB.Conexao();
+
+            try
+            {
+                connection.Open();
+
+                MySqlCommand cmdGetUser = new MySqlCommand(
+                    "SELECT tb_usuarios.pecado, tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
+                    connection
+                );
+
+                cmdGetUser.Parameters.AddWithValue("@usuario", usuario);
+
+                MySqlDataReader result = cmdGetUser.ExecuteReader();
+
+                if (result.Read())
+                {
+                    // Passando os dados do MySqlDataReader para o Dicionario para poder manter os dados mesmo depois da conexão fechar
+
+                    // Tipo Object -> Armazena qualquer tipo de dado
+                    Dictionary<string, object> returnValue = new Dictionary<string, object>();
+
+                    for (int i = 0; i < result.FieldCount; i++)
+                    {
+                        returnValue[result.GetName(i)] = result.GetValue(i);
+                    }
+
+                    // Dicionário com as informações do usuário
+
+                    return returnValue;
+                }
+
+                else
+                {
+                    // Erro
+
+                    return null;
+                }
+            }
+
+            catch (Exception)
+            {
+                return null;
+            }
+
+            finally
+            {
+                connection.Close();
             }
         }
     }
