@@ -39,8 +39,12 @@
             pictureBox2 = new PictureBox();
             btn_logar = new Button();
             btn_cadastrar = new Button();
+            pictureBox3 = new PictureBox();
+            pictureBox4 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -100,6 +104,7 @@
             txt_senha.Size = new Size(212, 23);
             txt_senha.TabIndex = 4;
             txt_senha.UseSystemPasswordChar = true;
+            txt_senha.TextChanged += txt_senha_TextChanged;
             // 
             // pictureBox1
             // 
@@ -149,12 +154,35 @@
             btn_cadastrar.UseVisualStyleBackColor = false;
             btn_cadastrar.Click += btn_cadastrar_Click;
             // 
+            // pictureBox3
+            // 
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(255, 357);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(142, 100);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 10;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(403, 357);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(144, 100);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 11;
+            pictureBox4.TabStop = false;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(128, 255, 255);
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
+            Controls.Add(pictureBox3);
+            Controls.Add(pictureBox4);
             Controls.Add(btn_cadastrar);
             Controls.Add(btn_logar);
             Controls.Add(pictureBox2);
@@ -171,8 +199,11 @@
             Name = "FrmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmLogin";
+            Load += FrmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -189,5 +220,7 @@
         private PictureBox pictureBox2;
         private Button btn_logar;
         private Button btn_cadastrar;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
     }
 }
