@@ -5,9 +5,9 @@ using projeto_agenda_telefonica.Views;
 
 namespace projeto_agenda_telefonica
 {
-    public partial class FrmLogin : Form
+    public partial class FrmAgenda : Form
     {
-        public FrmLogin()
+        public FrmAgenda()
         {
             InitializeComponent();
         }

@@ -33,7 +33,7 @@ namespace projeto_agenda_telefonica.Views
         {
             int categoria = Convert.ToInt32(dgv_Categorias.SelectedRows[0].Cells[0].Value);
             CategoriaController editarcategoria = new CategoriaController();
-           
+
         }
 
         private void btn_excluir_Click(object sender, EventArgs e)
@@ -53,6 +53,8 @@ namespace projeto_agenda_telefonica.Views
             // quando atualizar o forms ele atualiza automaticamente a lista de categorias
             this.AtualizarDgvCategorias();
 
+            lbl_bem_vindo.Text = $"Bem vindo(a) {UserSession.InfoUsuario["nome"]}";
+
             lblnome.Text = UserSession.InfoUsuario["nome"].ToString();
 
             lblusuario.Text = UserSession.InfoUsuario["usuario"].ToString();
@@ -65,6 +67,11 @@ namespace projeto_agenda_telefonica.Views
         {
             FrmContatos telaContatos = new FrmContatos();
             telaContatos.ShowDialog();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -189,6 +189,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FrmCadastro";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmCadastro";
             ResumeLayout(false);
             PerformLayout();

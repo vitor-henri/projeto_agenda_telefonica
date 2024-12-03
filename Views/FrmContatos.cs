@@ -35,5 +35,10 @@ namespace projeto_agenda_telefonica.Views
         {
             this.Close();
         }
+
+        private void btn_add_contato_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

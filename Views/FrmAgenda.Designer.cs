@@ -1,6 +1,6 @@
 ﻿namespace projeto_agenda_telefonica
 {
-    partial class FrmLogin
+    partial class FrmAgenda
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAgenda));
             label1 = new Label();
             label2 = new Label();
             txt_usuario = new TextBox();

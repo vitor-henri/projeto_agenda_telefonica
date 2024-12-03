@@ -71,6 +71,7 @@
             Controls.Add(btn_salvar);
             Controls.Add(txt_add);
             Name = "FrmAddCategoria";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAddCategoria";
             ResumeLayout(false);
             PerformLayout();
