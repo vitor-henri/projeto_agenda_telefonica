@@ -41,6 +41,16 @@ namespace projeto_agenda_telefonica.Views
             int categoria = Convert.ToInt32(dgv_Categorias.SelectedRows[0].Cells[0].Value);
             CategoriaController excluircategoria = new CategoriaController();
             excluircategoria.DeletarCategoria(categoria);
+
+            if (excluircategoria == true)
+            {
+                MessageBox.Show("Categoria deletada com sucesso");
+            }
+
+            else
+            {
+                MessageBox.Show("Erro ao tentar excluir a categoria");
+            }
         }
 
         private void btn_atualizar_Click(object sender, EventArgs e)
@@ -53,14 +63,9 @@ namespace projeto_agenda_telefonica.Views
             // quando atualizar o forms ele atualiza automaticamente a lista de categorias
             this.AtualizarDgvCategorias();
 
+
+            // pegando o nome do usuario e dando bem vindo
             lbl_bem_vindo.Text = $"Bem vindo(a) {UserSession.InfoUsuario["nome"]}";
-
-            lblnome.Text = UserSession.InfoUsuario["nome"].ToString();
-
-            lblusuario.Text = UserSession.InfoUsuario["usuario"].ToString();
-
-            lbltelefone.Text = UserSession.InfoUsuario["telefone"].ToString();
-
         }
 
         private void btn_add_contatos_Click(object sender, EventArgs e)

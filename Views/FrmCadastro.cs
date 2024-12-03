@@ -48,7 +48,7 @@ namespace projeto_agenda_telefonica.Views
         {
             // Instanciando a Classe UserController
 
-            bool cadastro = new UserController().CriarUsuario(txt_nome.Text, txt_usuario.Text, txt_senha.Text, txt_telefone.Text);
+            bool cadastro = new UserController().CriarUsuario(txt_nome.Text, txt_usuario.Text, txt_telefone.Text, txt_senha.Text);
 
             if (cadastro == true)
             {

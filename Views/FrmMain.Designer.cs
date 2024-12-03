@@ -34,19 +34,11 @@
             btn_excluir = new Button();
             dgv_Categorias = new DataGridView();
             btn_atualizar = new Button();
-            lblnome = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            lbltelefone = new Label();
-            lblusuario = new Label();
             btn_add_contatos = new Button();
             lbl_bem_vindo = new Label();
-            groupBox1 = new GroupBox();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgv_Categorias).BeginInit();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -116,61 +108,6 @@
             btn_atualizar.UseVisualStyleBackColor = false;
             btn_atualizar.Click += btn_atualizar_Click;
             // 
-            // lblnome
-            // 
-            lblnome.AutoSize = true;
-            lblnome.Location = new Point(15, 53);
-            lblnome.Name = "lblnome";
-            lblnome.Size = new Size(16, 15);
-            lblnome.TabIndex = 5;
-            lblnome.Text = "...";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(6, 34);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 15);
-            label2.TabIndex = 7;
-            label2.Text = "nome";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(92, 32);
-            label3.Name = "label3";
-            label3.Size = new Size(47, 15);
-            label3.TabIndex = 8;
-            label3.Text = "usuario";
-            label3.Click += label3_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(43, 88);
-            label4.Name = "label4";
-            label4.Size = new Size(55, 15);
-            label4.TabIndex = 9;
-            label4.Text = "telefone";
-            // 
-            // lbltelefone
-            // 
-            lbltelefone.AutoSize = true;
-            lbltelefone.Location = new Point(58, 103);
-            lbltelefone.Name = "lbltelefone";
-            lbltelefone.Size = new Size(16, 15);
-            lbltelefone.TabIndex = 10;
-            lbltelefone.Text = "...";
-            // 
-            // lblusuario
-            // 
-            lblusuario.AutoSize = true;
-            lblusuario.Location = new Point(101, 57);
-            lblusuario.Name = "lblusuario";
-            lblusuario.Size = new Size(16, 15);
-            lblusuario.TabIndex = 11;
-            lblusuario.Text = "...";
-            // 
             // btn_add_contatos
             // 
             btn_add_contatos.BackColor = Color.Lime;
@@ -193,23 +130,6 @@
             lbl_bem_vindo.Name = "lbl_bem_vindo";
             lbl_bem_vindo.Size = new Size(0, 32);
             lbl_bem_vindo.TabIndex = 13;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(lblusuario);
-            groupBox1.Controls.Add(lbltelefone);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(lblnome);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.ForeColor = Color.White;
-            groupBox1.Location = new Point(513, 101);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(146, 152);
-            groupBox1.TabIndex = 14;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Informações User";
             // 
             // pictureBox1
             // 
@@ -240,7 +160,6 @@
             ClientSize = new Size(724, 450);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Controls.Add(groupBox1);
             Controls.Add(lbl_bem_vindo);
             Controls.Add(btn_add_contatos);
             Controls.Add(btn_atualizar);
@@ -253,8 +172,6 @@
             Text = "FrmProfile";
             Load += FrmContatos_Load;
             ((System.ComponentModel.ISupportInitialize)dgv_Categorias).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -268,15 +185,8 @@
         private Button btn_excluir;
         private DataGridView dgv_Categorias;
         private Button btn_atualizar;
-        private Label lblnome;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label lbltelefone;
-        private Label lblusuario;
         private Button btn_add_contatos;
         private Label lbl_bem_vindo;
-        private GroupBox groupBox1;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
     }
