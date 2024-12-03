@@ -41,16 +41,7 @@ namespace projeto_agenda_telefonica.Views
             int categoria = Convert.ToInt32(dgv_Categorias.SelectedRows[0].Cells[0].Value);
             CategoriaController excluircategoria = new CategoriaController();
             excluircategoria.DeletarCategoria(categoria);
-
-            if (excluircategoria == true)
-            {
-                MessageBox.Show("Categoria deletada com sucesso");
-            }
-
-            else
-            {
-                MessageBox.Show("Erro ao tentar excluir a categoria");
-            }
+            MessageBox.Show("Categoria deletada com sucesso");
         }
 
         private void btn_atualizar_Click(object sender, EventArgs e)

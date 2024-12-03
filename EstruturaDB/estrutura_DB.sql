@@ -83,9 +83,9 @@ CREATE TABLE IF NOT EXISTS tb_logs (
 
 -- USUÁRIO ADMIN
 
-INSERT INTO tb_usuarios VALUES ("Vitor", "vito", "6969", "rotiv");
+INSERT INTO tb_usuarios VALUES ("Vitor", "vito", "6969", "rotiv6969");
 
-CREATE USER 'vitor'@'%' IDENTIFIED BY 'rotiv';
+CREATE USER IF NOT EXISTS 'vitor'@'%' IDENTIFIED BY 'rotiv6969';
 GRANT ALL PRIVILEGES ON db_agenda.* TO 'vitor'@'%' WITH GRANT OPTION;
 
 -- TRIGGER SET PROPRIETARIO CATEGORIA
@@ -117,7 +117,7 @@ CREATE TRIGGER tr_log_insert_categoria
 BEGIN
     INSERT INTO tb_logs (usuario, descricao) VALUES (
         USER(),
-        CONCAT("CATEGORIA INSERIDA: ", NEW.categoria)
+        CONCAT("CATEGORIA ADCIONADA: ", NEW.categoria)
     );
 END;
 
@@ -137,7 +137,7 @@ CREATE TRIGGER tr_log_delete_categoria
 BEGIN
     INSERT INTO tb_logs (usuario, descricao) VALUES (
         USER(),
-        CONCAT("CATEGORIA DELETADA: ", OLD.categoria, ". PROPRIETÁRIO: ", OLD.usuario)
+        CONCAT("CATEGORIA DELETADA: ", OLD.categoria, ". POR: ", OLD.usuario)
     );
 END;
 
@@ -157,10 +157,11 @@ CREATE TRIGGER tr_log_update_categoria
 BEGIN
     INSERT INTO tb_logs (usuario, descricao) VALUES (
         USER(),
-        CONCAT("NOME DA CATEGORIA ALTERADO DE: ", OLD.categoria, " PARA: ", NEW.categoria)
+        CONCAT("Nome da categoria alterado: ", OLD.categoria, " para: ", NEW.categoria)
     );
 END;
 
 $$
 
 DELIMITER ;
+
