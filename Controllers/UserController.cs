@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using projeto_agenda_telefonica.Data;
+using projeto_agenda_telefonica.GlobalVariable;
 
 namespace projeto_agenda_telefonica.Controllers
 {
@@ -92,6 +94,103 @@ namespace projeto_agenda_telefonica.Controllers
                 connection.Close();
             }
         }
+        public bool ModificarSenha(string usuario, string novaSenha)
+        {
+            MySqlConnection connection = UserSession.Conexao;
+
+            if (connection != null)
+            {
+                try
+                {
+                    connection.Open();
+
+                    MySqlCommand cmdUpdatePassword = new MySqlCommand(
+                        $@"
+                            UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario;
+                            ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'
+                        ",
+                        connection
+                    );
+
+                    cmdUpdatePassword.Parameters.AddWithValue("@usuario", usuario);
+
+                    cmdUpdatePassword.Parameters.AddWithValue("@nova_senha", novaSenha);
+
+                    if (cmdUpdatePassword.ExecuteNonQuery() > 0)
+                    {
+                        // Senha do usuário alterada
+
+                        return true;
+                    }
+
+                    else
+                    {
+                        // Erro
+
+                        return false;
+                    }
+
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+
+                    return false;
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+        public DataTable GetContatos()
+        {
+            MySqlConnection connection = UserSession.Conexao;
+
+            if (connection != null)
+            {
+                try
+                {
+                    connection.Open();
+
+                    MySqlDataAdapter adpGetContatos = new MySqlDataAdapter(
+                        "SELECT tb_contatos.id_contato AS 'ID', tb_contatos.nome AS 'Nome', tb_contatos.endereco AS 'Endereço', tb_contatos.email AS 'E-Mail' FROM tb_contatos WHERE tb_contatos.usuario = SUBSTRING_INDEX(USER(), '@', 1);",
+                        connection
+                    );
+
+                    DataTable table = new DataTable();
+
+                    adpGetContatos.Fill(table);
+
+                    // Tabela contendo os contatos
+                    return table;
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+
+                    return new DataTable();
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            else
+            {
+                return new DataTable();
+            }
+        }
         public Dictionary<string, object>? PegarUsuario(string usuario)
         {
             MySqlConnection connection = ConexaoDB.Conexao();
@@ -101,7 +200,7 @@ namespace projeto_agenda_telefonica.Controllers
                 connection.Open();
 
                 MySqlCommand cmdGetUser = new MySqlCommand(
-                    "SELECT tb_usuarios.pecado, tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
+                    "SELECT tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
                     connection
                 );
 
@@ -137,6 +236,53 @@ namespace projeto_agenda_telefonica.Controllers
             catch (Exception)
             {
                 return null;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public bool ValidateUser(string usuario, string senha)
+        {
+            MySqlConnection connection = ConexaoDB.Conexao();
+
+            try
+            {
+                connection.Open();
+
+                MySqlCommand cmdSelectUser = new MySqlCommand(
+                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
+                    connection
+                );
+
+                cmdSelectUser.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdSelectUser.Parameters.AddWithValue("@senha", senha);
+
+                // Retorna o conjunto dos resultados gerados (ExecuteReader)
+                MySqlDataReader result = cmdSelectUser.ExecuteReader();
+
+                if (result.Read())
+                {
+                    // Usuário Validado
+
+                    return true;
+                }
+
+                else
+                {
+                    // Usuário Não Validado
+
+                    return false;
+                }
+            }
+
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+
+                return false;
             }
 
             finally

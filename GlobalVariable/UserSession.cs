@@ -24,150 +24,23 @@ namespace projeto_agenda_telefonica.GlobalVariable
                 _conexao = value;
             }
         }
-    }
-    public bool DeletarUsuario(string usuario)
-    {
-        MySqlConnection connection = ConexaoDB.Conexao();
 
-        try
+        // usando dicionario novamente para não perder os dados do usuario mesmo depois da conexão fechar
+        static private Dictionary<string, object> _infousuario = null;
+
+        static public Dictionary<string, object> InfoUsuario
         {
-            connection.Open();
 
-            MySqlCommand cmdDeleteUser = new MySqlCommand(
-                $@"
-                        DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;
-                        DROP USER '{usuario}'@'%';
-                    ",
-                connection
-            );
-
-            cmdDeleteUser.Parameters.AddWithValue("@usuario", usuario);
-
-            cmdDeleteUser.ExecuteNonQuery();
-
-            // Usuário Deletado
-
-            return true;
-        }
-
-        catch (Exception)
-        {
-            return false;
-        }
-
-        finally
-        {
-            connection.Close();
-        }
-    }
-
-    public bool ModificarSenha(string usuario, string novaSenha)
-    {
-        MySqlConnection connection = UserSession.Conexao;
-
-        if (connection != null)
-        {
-            try
+            get
             {
-                connection.Open();
-
-                MySqlCommand cmdUpdatePassword = new MySqlCommand(
-                    $@"
-                            UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario;
-                            ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'
-                        ",
-                    connection
-                );
-
-                cmdUpdatePassword.Parameters.AddWithValue("@usuario", usuario);
-
-                cmdUpdatePassword.Parameters.AddWithValue("@nova_senha", novaSenha);
-
-                if (cmdUpdatePassword.ExecuteNonQuery() > 0)
-                {
-                    // Senha do usuário alterada
-
-                    return true;
-                }
-
-                else
-                {
-                    // Erro
-
-                    return false;
-                }
-
+                return _infousuario;
             }
 
-            catch (Exception err)
+            set
             {
-                MessageBox.Show(err.Message);
-
-                return false;
+                _infousuario = value;
             }
 
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        else
-        {
-            return false;
-        }
-    }
-
-    public Dictionary<string, object>? PegarUsuario(string usuario)
-    {
-        MySqlConnection connection = ConexaoDB.Conexao();
-
-        try
-        {
-            connection.Open();
-
-            MySqlCommand cmdGetUser = new MySqlCommand(
-                "SELECT tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
-                connection
-            );
-
-            cmdGetUser.Parameters.AddWithValue("@usuario", usuario);
-
-            MySqlDataReader result = cmdGetUser.ExecuteReader();
-
-            if (result.Read())
-            {
-                // Passando os dados do MySqlDataReader para o Dicionario para poder manter os dados mesmo depois da conexão fechar
-
-                // Tipo Object -> Armazena qualquer tipo de dado
-                Dictionary<string, object> returnValue = new Dictionary<string, object>();
-
-                for (int i = 0; i < result.FieldCount; i++)
-                {
-                    returnValue[result.GetName(i)] = result.GetValue(i);
-                }
-
-                // Dicionário com as informações do usuário
-
-                return returnValue;
-            }
-
-            else
-            {
-                // Erro
-
-                return null;
-            }
-        }
-
-        catch (Exception)
-        {
-            return null;
-        }
-
-        finally
-        {
-            connection.Close();
         }
     }
 }

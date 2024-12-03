@@ -189,7 +189,6 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FrmCadastro";
-            Opacity = 0.7D;
             Text = "FrmCadastro";
             ResumeLayout(false);
             PerformLayout();

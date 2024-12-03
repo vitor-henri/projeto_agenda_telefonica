@@ -1,3 +1,6 @@
+using projeto_agenda_telefonica.Controllers;
+using projeto_agenda_telefonica.Data;
+using projeto_agenda_telefonica.GlobalVariable;
 using projeto_agenda_telefonica.Views;
 
 namespace projeto_agenda_telefonica
@@ -23,7 +26,29 @@ namespace projeto_agenda_telefonica
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            if (new UserController().ValidateUser(txt_usuario.Text, txt_senha.Text))
+            {
+                // Usuário Validado
 
+                UserSession.Conexao = ConexaoDB.Conexao(txt_usuario.Text, txt_senha.Text);
+
+                UserSession.InfoUsuario = new UserController().PegarUsuario(txt_usuario.Text);
+
+                FrmContatos ProfileTela = new FrmContatos();
+
+                this.Hide();
+
+                ProfileTela.ShowDialog();
+
+                this.Close();
+            }
+
+            else
+            {
+                // Usuário Não Validado
+
+                MessageBox.Show("Usuário ou senha incorreta.", "Tente Novamente!");
+            }
         }
 
         private void txt_senha_TextChanged(object sender, EventArgs e)

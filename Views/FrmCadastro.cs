@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projeto_agenda_telefonica.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,7 +46,26 @@ namespace projeto_agenda_telefonica.Views
 
         private void btn_logar_Click(object sender, EventArgs e)
         {
+            // Instanciando a Classe UserController
 
+            bool cadastro = new UserController().CriarUsuario(txt_nome.Text, txt_usuario.Text, txt_senha.Text, txt_telefone.Text);
+
+            if (cadastro)
+            {
+                this.Close();
+
+                // Sucesso
+
+                MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
+
+            }
+
+            else
+            {
+                // Erro
+
+                MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
+            }
         }
     }
 }
