@@ -63,7 +63,59 @@ namespace projeto_agenda_telefonica.Controllers
             }
         }
 
-        public bool DeleteCategoria(int idCategoria)
+        public bool EditarCategoria(string categoria)
+        {
+            MySqlConnection connection = UserSession.Conexao;
+
+            if (connection != null)
+            {
+                try
+                {
+                    connection.Open();
+
+                    MySqlCommand cmdInsertCategoria = new MySqlCommand(
+                        @"UPDATE ;",
+                        connection
+                    );
+
+                    cmdInsertCategoria.Parameters.AddWithValue("@categoria", categoria);
+
+                    if (cmdInsertCategoria.ExecuteNonQuery() > 0)
+                    {
+                        // Categoria criada
+
+                        return true;
+                    }
+
+                    else
+                    {
+                        // Erro
+
+                        return false;
+                    }
+
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+
+                    return false;
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeletarCategoria(int idCategoria)
         {
             MySqlConnection connection = UserSession.Conexao;
 

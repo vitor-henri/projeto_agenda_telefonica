@@ -50,13 +50,13 @@ namespace projeto_agenda_telefonica.Views
 
             bool cadastro = new UserController().CriarUsuario(txt_nome.Text, txt_usuario.Text, txt_senha.Text, txt_telefone.Text);
 
-            if (cadastro)
+            if (cadastro == true)
             {
                 this.Close();
 
                 // Sucesso
 
-                MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
+                MessageBox.Show("Você agora está cadastrado no Mundo");
 
             }
 
@@ -64,7 +64,7 @@ namespace projeto_agenda_telefonica.Views
             {
                 // Erro
 
-                MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
+                MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!");
             }
         }
     }

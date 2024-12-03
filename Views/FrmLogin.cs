@@ -14,19 +14,7 @@ namespace projeto_agenda_telefonica
 
         private void btn_logar_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btn_cadastrar_Click(object sender, EventArgs e)
-        {
-            FrmCadastro frmCadastro = new FrmCadastro();
-            frmCadastro.ShowDialog();
-            this.Hide();
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-            if (new UserController().ValidateUser(txt_usuario.Text, txt_senha.Text))
+            if (new UserController().ValidarUsuario(txt_usuario.Text, txt_senha.Text))
             {
                 // Usuário Validado
 
@@ -34,7 +22,7 @@ namespace projeto_agenda_telefonica
 
                 UserSession.InfoUsuario = new UserController().PegarUsuario(txt_usuario.Text);
 
-                FrmContatos ProfileTela = new FrmContatos();
+                FrmMain ProfileTela = new FrmMain();
 
                 this.Hide();
 
@@ -49,6 +37,17 @@ namespace projeto_agenda_telefonica
 
                 MessageBox.Show("Usuário ou senha incorreta.", "Tente Novamente!");
             }
+        }
+
+        private void btn_cadastrar_Click(object sender, EventArgs e)
+        {
+            FrmCadastro frmCadastro = new FrmCadastro();
+            frmCadastro.ShowDialog();
+        }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void txt_senha_TextChanged(object sender, EventArgs e)

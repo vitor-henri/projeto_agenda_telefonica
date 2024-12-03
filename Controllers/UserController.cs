@@ -15,20 +15,18 @@ namespace projeto_agenda_telefonica.Controllers
         public bool CriarUsuario(string nome, string usuario, string telefone, string senha)
         {
             // Criando Conexão
-            MySqlConnection conexao = null;
+            MySqlConnection connection = ConexaoDB.Conexao();
 
             try
             {
-                conexao.Open();
+                connection.Open();
 
                 MySqlCommand add_usuario = new MySqlCommand(
                      $@"
-                        INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);
+                        INSERT INTO tb_usuarios VALUES (@nome, @usuario, @telefone, @senha);
                         CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';
                         GRANT SELECT ON db_agenda.tb_categorias TO '{usuario}'@'%';
-                    ",
-                     conexao
-                     );
+                    ", connection);
 
                 add_usuario.Parameters.AddWithValue("@nome", nome);
                 add_usuario.Parameters.AddWithValue("@usuario", usuario);
@@ -56,7 +54,7 @@ namespace projeto_agenda_telefonica.Controllers
             }
             finally
             {
-                conexao.Close();
+                connection.Close();
             }
         }
         public bool DeletarUsuario(string usuario)
@@ -92,62 +90,6 @@ namespace projeto_agenda_telefonica.Controllers
             finally
             {
                 connection.Close();
-            }
-        }
-        public bool ModificarSenha(string usuario, string novaSenha)
-        {
-            MySqlConnection connection = UserSession.Conexao;
-
-            if (connection != null)
-            {
-                try
-                {
-                    connection.Open();
-
-                    MySqlCommand cmdUpdatePassword = new MySqlCommand(
-                        $@"
-                            UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario;
-                            ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'
-                        ",
-                        connection
-                    );
-
-                    cmdUpdatePassword.Parameters.AddWithValue("@usuario", usuario);
-
-                    cmdUpdatePassword.Parameters.AddWithValue("@nova_senha", novaSenha);
-
-                    if (cmdUpdatePassword.ExecuteNonQuery() > 0)
-                    {
-                        // Senha do usuário alterada
-
-                        return true;
-                    }
-
-                    else
-                    {
-                        // Erro
-
-                        return false;
-                    }
-
-                }
-
-                catch (Exception err)
-                {
-                    MessageBox.Show(err.Message);
-
-                    return false;
-                }
-
-                finally
-                {
-                    connection.Close();
-                }
-            }
-
-            else
-            {
-                return false;
             }
         }
         public DataTable GetContatos()
@@ -243,7 +185,7 @@ namespace projeto_agenda_telefonica.Controllers
                 connection.Close();
             }
         }
-        public bool ValidateUser(string usuario, string senha)
+        public bool ValidarUsuario(string usuario, string senha)
         {
             MySqlConnection connection = ConexaoDB.Conexao();
 

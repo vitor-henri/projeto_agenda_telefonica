@@ -28,21 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContatos));
+            label1 = new Label();
+            dgv_contatos = new DataGridView();
+            btn_atualizar = new Button();
+            btn_voltar = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgv_contatos).BeginInit();
             SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(375, 45);
+            label1.Name = "label1";
+            label1.Size = new Size(55, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Contatos";
+            // 
+            // dgv_contatos
+            // 
+            dgv_contatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_contatos.Location = new Point(269, 74);
+            dgv_contatos.Name = "dgv_contatos";
+            dgv_contatos.Size = new Size(277, 265);
+            dgv_contatos.TabIndex = 1;
+            // 
+            // btn_atualizar
+            // 
+            btn_atualizar.Location = new Point(269, 348);
+            btn_atualizar.Name = "btn_atualizar";
+            btn_atualizar.Size = new Size(131, 39);
+            btn_atualizar.TabIndex = 2;
+            btn_atualizar.Text = "Atualizar";
+            btn_atualizar.UseVisualStyleBackColor = true;
+            btn_atualizar.Click += btn_atualizar_Click;
+            // 
+            // btn_voltar
+            // 
+            btn_voltar.Location = new Point(418, 348);
+            btn_voltar.Name = "btn_voltar";
+            btn_voltar.Size = new Size(128, 39);
+            btn_voltar.TabIndex = 3;
+            btn_voltar.Text = "Voltar";
+            btn_voltar.UseVisualStyleBackColor = true;
+            btn_voltar.Click += btn_voltar_Click;
             // 
             // FrmContatos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_voltar);
+            Controls.Add(btn_atualizar);
+            Controls.Add(dgv_contatos);
+            Controls.Add(label1);
             Name = "FrmContatos";
-            Text = "FrmProfile";
+            Text = "FrmContatos";
+            Load += FrmContatos_Load;
+            ((System.ComponentModel.ISupportInitialize)dgv_contatos).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
+        private DataGridView dgv_contatos;
+        private Button btn_atualizar;
+        private Button btn_voltar;
     }
 }
